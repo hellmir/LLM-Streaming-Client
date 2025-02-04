@@ -9,7 +9,7 @@ interface OptionItem {
 
 const IndexPage = () => {
     const [model, setModel] = useState("mistral");
-    const [prompt, setPrompt] = useState("레시피 추천해 줘");
+    const [prompt, setPrompt] = useState("레시피 몇 개 추천해 줘");
     const [optionsArray, setOptionsArray] = useState<OptionItem[]>([
         {name: "식사 유형", items: ["아침"]},
         {name: "요리 유형", items: ["이탈리안"]},
@@ -267,9 +267,7 @@ const IndexPage = () => {
                                 <input
                                     type="text"
                                     value={option.name}
-                                    onChange={(e) =>
-                                        handleOptionNameChange(optIndex, e.target.value)
-                                    }
+                                    onChange={(e) => handleOptionNameChange(optIndex, e.target.value)}
                                     placeholder="옵션 이름 입력"
                                     style={{
                                         flex: "1",
@@ -321,9 +319,7 @@ const IndexPage = () => {
                                         <input
                                             type="text"
                                             value={item}
-                                            onChange={(e) =>
-                                                handleOptionItemChange(optIndex, itemIndex, e.target.value)
-                                            }
+                                            onChange={(e) => handleOptionItemChange(optIndex, itemIndex, e.target.value)}
                                             placeholder="옵션 항목 입력"
                                             style={{
                                                 flex: "1",

@@ -4,7 +4,7 @@
 - LLM Streaming Server를 통해 LLM 스트리밍 서비스를 제공하는 클라이언트
 
 ## 📅 프로젝트 기간
-<b>2025. 02. 05 ~</b>
+<b>2025. 02. 05</b>
 <br><br>
 
 ## 👫 구성원
@@ -14,7 +14,7 @@
   <br>
 
 ## 📚 관련 URL
-- [클라이언트](https://hyobin-llm.vercel.app)
+- [생성형 AI 스트리밍 서비스](https://hyobin-llm.vercel.app)
 - [LLM Streaming 서버 API](https://hyobin-llm.duckdns.org/docs)
 - [LLM Streaming API 클라이언트 서버 API](https://hyobin-llm-client.duckdns.org/swagger-ui/index.html)
 - [LLM Streaming 서버 Repository](https://github.com/hellmir/LLM-Streaming-Server)
