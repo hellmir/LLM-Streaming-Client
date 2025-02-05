@@ -14,12 +14,22 @@
   <br>
 
 ## 📚 관련 URL
-- [생성형 AI 스트리밍 서비스](https://hyobin-llm.vercel.app)
+- [서비스 URL](https://hyobin-llm.vercel.app)
 - [LLM Streaming 서버 API](https://hyobin-llm.duckdns.org/docs)
 - [LLM Streaming API 클라이언트 서버 API](https://hyobin-llm-client.duckdns.org/swagger-ui/index.html)
 - [LLM Streaming 서버 Repository](https://github.com/hellmir/LLM-Streaming-Server)
 - [LLM Streaming API 클라이언트 서버 Repository](https://github.com/hellmir/LLM-Streaming-API-Client)
   <br><br>
+
+## ![pngwing com (14)](https://github.com/user-attachments/assets/d2cdfacc-c141-400c-9ba4-3f77d7664714) LLM Models
+- Mistral Large
+- Llama3.3
+- HCX-003
+- Gemini 1.5 Pro
+- GPT 3.5 Turbo
+
+## 🗼 Architecture
+![llm-service](https://github.com/user-attachments/assets/6706f365-c4ad-4f09-bb43-7aebcbe5477b)
 
 ## 🛠️ Skills
 
@@ -27,8 +37,6 @@
 - TypeScript
 - React
 - Next.js
-- Tailwind CSS
-- Zustand
   <br>
 
 ## DevOps
