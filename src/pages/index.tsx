@@ -115,13 +115,13 @@ const IndexPage = () => {
         abortControllerRef.current = controller;
 
         const requestBody = {
-            secret_key: "abcde",
+            secret_key: process.env.NEXT_PUBLIC_SECRET_KEY,
             template: prompt,
             llm_type: model,
             options: parseOptions(),
         };
 
-        const API_BASE_URL = process.env.NEXT_PUBLIC_SECRET_KEY;
+        const API_BASE_URL = "https://hyobin-llm.duckdns.org";
         const REQUEST_ENDPOINT = process.env.NEXT_PUBLIC_REQUEST_ENDPOINT;
         const response = await fetch(`${API_BASE_URL}/${REQUEST_ENDPOINT}`, {
             method: "POST",
