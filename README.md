@@ -124,3 +124,22 @@
 [LSCT-2](https://langchain.atlassian.net/browse/LSCT-2) README.md 추가
 
 [LSCT-18](https://langchain.atlassian.net/browse/LSCT-18) index 컴포넌트 리팩터링
+<br><br>
+
+## 릴리스 정보 - LLM Streaming Client - LlmStreamingClientRelease02/05-2
+
+### 하위 작업
+
+[LSCT-27](https://langchain.atlassian.net/browse/LSCT-27) Enter 키를 눌러 프롬프트를 생성할 수 있도록 설정
+
+[LSCT-28](https://langchain.atlassian.net/browse/LSCT-28) LLM이 답변 중일 때 스크롤이 함께 내려 가도록 설정
+
+[LSCT-29](https://langchain.atlassian.net/browse/LSCT-29) ESC 키를 눌러 화면이 아래로 내려 가더라도 편리하게 답변을 중지할 수 있도록 설정
+
+### 스토리
+
+[LSCT-26](https://langchain.atlassian.net/browse/LSCT-26) 사용자는 LLM 답변 서비스를 보다 편리하게 이용할 수 있다
+
+### 작업
+
+[LSCT-2](https://langchain.atlassian.net/browse/LSCT-2) README.md 추가
