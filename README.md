@@ -1,4 +1,4 @@
-# ![ai](https://github.com/user-attachments/assets/4a4fece4-ce22-48f1-a1a1-a5804ab4ebc0) 생성형 AI Streaming Client 
+# ![ai 2](https://github.com/user-attachments/assets/ee43eaa7-fa5c-442e-81fa-6db882f53d0f) 생성형 AI 스트리밍 서비스 클라이언트
 
 ## 📋 프로젝트 설명
 - LLM Streaming Server를 통해 LLM 스트리밍 서비스를 제공하는 클라이언트
