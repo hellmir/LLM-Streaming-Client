@@ -2,6 +2,11 @@
 
 ## 📋 프로젝트 설명
 - LLM Streaming Server를 통해 LLM 스트리밍 서비스를 제공하는 클라이언트
+<br><br>
+
+## 📼 서비스 시연
+![hyobin-llm](https://github.com/user-attachments/assets/f62ff497-d639-4176-b21a-e29d6cda76bd)
+<br><br>
 
 ## 📅 프로젝트 기간
 <b>2025. 02. 05</b>
@@ -37,6 +42,7 @@
 - TypeScript
 - React
 - Next.js
+- Tailwind CSS
   <br>
 
 ## DevOps
