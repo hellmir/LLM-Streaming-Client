@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from "react";
+import {useRef, useState} from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import Image from "next/image";
@@ -21,30 +21,6 @@ const IndexPage = () => {
     const [text, setText] = useState("");
     const [isStreaming, setIsStreaming] = useState(false);
     const abortControllerRef = useRef<AbortController | null>(null);
-    const answerContainerRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        const handleKeyDown = (event: KeyboardEvent) => {
-            if (event.key === "Escape" && isStreaming) {
-                if (abortControllerRef.current) {
-                    abortControllerRef.current.abort();
-                }
-                setIsStreaming(false);
-            }
-            if (event.key === "Enter" && !event.shiftKey) {
-                event.preventDefault();
-                if (!isStreaming) {
-                    handleSubmit(new Event("submit") as unknown as React.FormEvent);
-                }
-            }
-        };
-        window.addEventListener("keydown", handleKeyDown);
-        return () => window.removeEventListener("keydown", handleKeyDown);
-    }, [isStreaming, prompt]);
-
-    useEffect(() => {
-        window.scrollTo(0, document.body.scrollHeight);
-    }, [text]);
 
     const parseOptions = () => {
         const parsed: { [key: string]: string[] } = {};
@@ -115,13 +91,13 @@ const IndexPage = () => {
         abortControllerRef.current = controller;
 
         const requestBody = {
-            secret_key: "abcde",
+            secret_key: process.env.NEXT_PUBLIC_SECRET_KEY,
             template: prompt,
             llm_type: model,
             options: parseOptions(),
         };
 
-        const API_BASE_URL = process.env.NEXT_PUBLIC_SECRET_KEY;
+        const API_BASE_URL = "https://hyobin-llm.duckdns.org";
         const REQUEST_ENDPOINT = process.env.NEXT_PUBLIC_REQUEST_ENDPOINT;
         const response = await fetch(`${API_BASE_URL}/${REQUEST_ENDPOINT}`, {
             method: "POST",
@@ -177,39 +153,13 @@ const IndexPage = () => {
         }
     };
 
-    useEffect(() => {
-        window.scrollTo(0, document.body.scrollHeight);
-    }, [text]);
-
-    useEffect(() => {
-        const handleKeyDown = (event: KeyboardEvent) => {
-            if (event.key === "Escape" && isStreaming) {
-                if (abortControllerRef.current) {
-                    abortControllerRef.current.abort();
-                }
-                setIsStreaming(false);
-            }
-        };
-        window.addEventListener("keydown", handleKeyDown);
-        return () => window.removeEventListener("keydown", handleKeyDown);
-    }, [isStreaming]);
-
     return (
         <div className="max-w-[800px] mx-auto p-5 bg-gray-100 font-sans">
             <div className="flex items-center justify-center mb-5 space-x-4">
-                <Image
-                    src="/ai.png"
-                    alt="서비스 로고"
-                    width={60}
-                    height={60}
-                    className="mb-1"
-                />
+                <Image src="/ai.png" alt="서비스 로고" width={60} height={60} className="mb-1"/>
                 <h1 className="text-4xl text-[#2c3e50]">생성형 AI 스트리밍 서비스</h1>
             </div>
-            <form
-                className="mb-5 bg-white p-4 rounded-lg shadow"
-                onSubmit={(e) => e.preventDefault()}
-            >
+            <form className="mb-5 bg-white p-4 rounded-lg shadow" onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label className="font-bold block mb-2">프롬프트:</label>
                     <input
@@ -229,7 +179,7 @@ const IndexPage = () => {
                     >
                         <option value="mistral">Mistral</option>
                         <option value="llama">Llama</option>
-                        <option value="clovax">Clovax (테스트 API)</option>
+                        <option value="clovax">ClovaX (테스트 API)</option>
                         <option value="gemini">Gemini (테스트 API)</option>
                         <option value="gpt">GPT (유료 서비스)</option>
                     </select>
@@ -268,9 +218,7 @@ const IndexPage = () => {
                                         <input
                                             type="text"
                                             value={item}
-                                            onChange={(e) =>
-                                                handleOptionItemChange(optIndex, itemIndex, e.target.value)
-                                            }
+                                            onChange={(e) => handleOptionItemChange(optIndex, itemIndex, e.target.value)}
                                             placeholder="옵션 항목 입력"
                                             className="flex-1 p-1.5 border border-gray-300 rounded bg-white text-black"
                                         />
@@ -317,14 +265,13 @@ const IndexPage = () => {
                         isStreaming ? "bg-red-500" : "bg-blue-500"
                     }`}
                 >
-                    {isStreaming ? "답변 생성 중지 (ESC)" : "프롬프트 전송 (Enter)"}
+                    {isStreaming ? "답변 생성 중지" : "프롬프트 전송"}
                 </button>
             </form>
             <hr className="my-5"/>
             <div>
                 <h2 className="text-[#2c3e50] mb-2.5 text-xl font-semibold">AI 답변</h2>
                 <div
-                    ref={answerContainerRef}
                     className="markdown-body"
                     style={{
                         padding: "15px",
