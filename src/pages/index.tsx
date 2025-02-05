@@ -1,6 +1,7 @@
 import {useRef, useState} from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import Image from "next/image";
 
 interface OptionItem {
     name: string;
@@ -90,14 +91,15 @@ const IndexPage = () => {
         abortControllerRef.current = controller;
 
         const requestBody = {
-            secret_key: "abcde",
+            secret_key: process.env.NEXT_PUBLIC_SECRET_KEY,
             template: prompt,
             llm_type: model,
             options: parseOptions(),
         };
 
         const API_BASE_URL = "https://hyobin-llm.duckdns.org";
-        const response = await fetch(`${API_BASE_URL}/streaming/sse`, {
+        const REQUEST_ENDPOINT = process.env.NEXT_PUBLIC_REQUEST_ENDPOINT;
+        const response = await fetch(`${API_BASE_URL}/${REQUEST_ENDPOINT}`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify(requestBody),
@@ -152,131 +154,51 @@ const IndexPage = () => {
     };
 
     return (
-        <div
-            style={{
-                maxWidth: "800px",
-                margin: "0 auto",
-                padding: "20px",
-                fontFamily: "Arial, sans-serif",
-                backgroundColor: "#f7f7f7",
-            }}
-        >
-            <h1
-                style={{
-                    textAlign: "center",
-                    color: "#2c3e50",
-                    marginBottom: "20px",
-                }}
-            >
-                생성형 AI 스트리밍 서비스
-            </h1>
-            <form
-                onSubmit={handleSubmit}
-                style={{
-                    marginBottom: "20px",
-                    backgroundColor: "#fff",
-                    padding: "15px",
-                    borderRadius: "8px",
-                    boxShadow: "0 2px 4px rgba(0,0,0,0.1)",
-                }}
-            >
-                <div style={{marginBottom: "10px"}}>
-                    <label
-                        style={{
-                            fontWeight: "bold",
-                            display: "block",
-                            marginBottom: "5px",
-                        }}
-                    >
-                        프롬프트:
-                    </label>
+        <div className="max-w-[800px] mx-auto p-5 bg-gray-100 font-sans">
+            <div className="flex items-center justify-center mb-5 space-x-4">
+                <Image src="/ai.png" alt="서비스 로고" width={60} height={60} className="mb-1"/>
+                <h1 className="text-4xl text-[#2c3e50]">생성형 AI 스트리밍 서비스</h1>
+            </div>
+            <form className="mb-5 bg-white p-4 rounded-lg shadow" onSubmit={handleSubmit}>
+                <div className="mb-3">
+                    <label className="font-bold block mb-2">프롬프트:</label>
                     <input
                         type="text"
                         value={prompt}
                         onChange={(e) => setPrompt(e.target.value)}
                         placeholder="프롬프트를 입력하세요"
-                        style={{
-                            width: "100%",
-                            padding: "8px",
-                            borderRadius: "4px",
-                            border: "1px solid #ccc",
-                            backgroundColor: "#fff",
-                            color: "#000",
-                        }}
+                        className="w-full p-2 rounded border border-gray-300 bg-white text-black"
                     />
                 </div>
-                <div style={{marginBottom: "10px"}}>
-                    <label
-                        style={{
-                            fontWeight: "bold",
-                            display: "block",
-                            marginBottom: "5px",
-                        }}
-                    >
-                        모델 선택:
-                    </label>
+                <div className="mb-3">
+                    <label className="font-bold block mb-2">모델 선택:</label>
                     <select
                         value={model}
                         onChange={(e) => setModel(e.target.value)}
-                        style={{
-                            width: "100%",
-                            padding: "8px",
-                            borderRadius: "4px",
-                            border: "1px solid #ccc",
-                            backgroundColor: "#fff",
-                            color: "#000",
-                        }}
+                        className="w-full p-2 rounded border border-gray-300 bg-white text-black"
                     >
                         <option value="mistral">Mistral</option>
                         <option value="llama">Llama</option>
-                        <option value="clovax">Clovax (테스트 API)</option>
+                        <option value="clovax">ClovaX (테스트 API)</option>
                         <option value="gemini">Gemini (테스트 API)</option>
                         <option value="gpt">GPT (유료 서비스)</option>
                     </select>
                 </div>
-                <div style={{marginBottom: "10px"}}>
-                    <h3 style={{marginBottom: "10px", color: "#2c3e50"}}>
-                        옵션 설정
-                    </h3>
+                <div className="mb-3">
+                    <h3 className="mb-3 text-[#2c3e50] font-semibold">옵션 설정</h3>
                     {optionsArray.map((option, optIndex) => (
                         <div
                             key={optIndex}
-                            style={{
-                                border: "1px solid #ccc",
-                                padding: "10px",
-                                marginBottom: "10px",
-                                borderRadius: "4px",
-                                backgroundColor: "#fafafa",
-                            }}
+                            className="border border-gray-300 p-3 mb-3 rounded bg-gray-50"
                         >
-                            <div
-                                style={{
-                                    display: "flex",
-                                    alignItems: "center",
-                                    marginBottom: "8px",
-                                }}
-                            >
-                                <label
-                                    style={{
-                                        fontWeight: "bold",
-                                        marginRight: "8px",
-                                    }}
-                                >
-                                    옵션 이름:
-                                </label>
+                            <div className="flex items-center mb-2">
+                                <label className="font-bold mr-2">옵션 이름:</label>
                                 <input
                                     type="text"
                                     value={option.name}
                                     onChange={(e) => handleOptionNameChange(optIndex, e.target.value)}
                                     placeholder="옵션 이름 입력"
-                                    style={{
-                                        flex: "1",
-                                        padding: "6px",
-                                        border: "1px solid #ccc",
-                                        borderRadius: "4px",
-                                        backgroundColor: "#fff",
-                                        color: "#000",
-                                    }}
+                                    className="flex-1 p-1.5 border border-gray-300 rounded bg-white text-black"
                                 />
                                 <button
                                     type="button"
@@ -284,51 +206,21 @@ const IndexPage = () => {
                                         e.stopPropagation();
                                         removeOption(optIndex);
                                     }}
-                                    style={{
-                                        marginLeft: "8px",
-                                        backgroundColor: "#e74c3c",
-                                        color: "#fff",
-                                        border: "none",
-                                        borderRadius: "4px",
-                                        padding: "6px 10px",
-                                        cursor: "pointer",
-                                    }}
+                                    className="ml-2 bg-red-500 text-white rounded p-1.5 px-2.5 cursor-pointer"
                                 >
                                     옵션 삭제
                                 </button>
                             </div>
                             <div>
-                                <label
-                                    style={{
-                                        fontWeight: "bold",
-                                        display: "block",
-                                        marginBottom: "5px",
-                                    }}
-                                >
-                                    옵션 항목:
-                                </label>
+                                <label className="font-bold block mb-2">옵션 항목:</label>
                                 {option.items.map((item, itemIndex) => (
-                                    <div
-                                        key={itemIndex}
-                                        style={{
-                                            display: "flex",
-                                            alignItems: "center",
-                                            marginBottom: "5px",
-                                        }}
-                                    >
+                                    <div key={itemIndex} className="flex items-center mb-2">
                                         <input
                                             type="text"
                                             value={item}
                                             onChange={(e) => handleOptionItemChange(optIndex, itemIndex, e.target.value)}
                                             placeholder="옵션 항목 입력"
-                                            style={{
-                                                flex: "1",
-                                                padding: "6px",
-                                                border: "1px solid #ccc",
-                                                borderRadius: "4px",
-                                                backgroundColor: "#fff",
-                                                color: "#000",
-                                            }}
+                                            className="flex-1 p-1.5 border border-gray-300 rounded bg-white text-black"
                                         />
                                         <button
                                             type="button"
@@ -336,15 +228,7 @@ const IndexPage = () => {
                                                 e.stopPropagation();
                                                 removeOptionItem(optIndex, itemIndex);
                                             }}
-                                            style={{
-                                                marginLeft: "8px",
-                                                backgroundColor: "#e67e22",
-                                                color: "#fff",
-                                                border: "none",
-                                                borderRadius: "4px",
-                                                padding: "6px 10px",
-                                                cursor: "pointer",
-                                            }}
+                                            className="ml-2 bg-orange-500 text-white rounded p-1.5 px-2.5 cursor-pointer"
                                         >
                                             항목 삭제
                                         </button>
@@ -356,15 +240,7 @@ const IndexPage = () => {
                                         e.stopPropagation();
                                         addOptionItem(optIndex);
                                     }}
-                                    style={{
-                                        backgroundColor: "#2ecc71",
-                                        color: "#fff",
-                                        border: "none",
-                                        borderRadius: "4px",
-                                        padding: "6px 10px",
-                                        cursor: "pointer",
-                                        marginTop: "5px",
-                                    }}
+                                    className="mt-2 bg-green-500 text-white rounded p-1.5 px-2.5 cursor-pointer"
                                 >
                                     항목 추가
                                 </button>
@@ -377,14 +253,7 @@ const IndexPage = () => {
                             e.stopPropagation();
                             addOption();
                         }}
-                        style={{
-                            backgroundColor: "#3498db",
-                            color: "#fff",
-                            border: "none",
-                            borderRadius: "4px",
-                            padding: "8px 12px",
-                            cursor: "pointer",
-                        }}
+                        className="bg-blue-500 text-white rounded p-2 px-3 cursor-pointer"
                     >
                         옵션 추가
                     </button>
@@ -392,23 +261,16 @@ const IndexPage = () => {
                 <button
                     type="button"
                     onClick={handleButtonClick}
-                    style={{
-                        backgroundColor: isStreaming ? "#e74c3c" : "#3498db",
-                        color: "#fff",
-                        padding: "10px 20px",
-                        border: "none",
-                        borderRadius: "4px",
-                        cursor: "pointer",
-                        fontSize: "16px",
-                        width: "100%",
-                    }}
+                    className={`w-full text-white p-2.5 rounded text-lg ${
+                        isStreaming ? "bg-red-500" : "bg-blue-500"
+                    }`}
                 >
                     {isStreaming ? "답변 생성 중지" : "프롬프트 전송"}
                 </button>
             </form>
-            <hr style={{margin: "20px 0"}}/>
+            <hr className="my-5"/>
             <div>
-                <h2 style={{color: "#2c3e50", marginBottom: "10px"}}>AI 답변</h2>
+                <h2 className="text-[#2c3e50] mb-2.5 text-xl font-semibold">AI 답변</h2>
                 <div
                     className="markdown-body"
                     style={{
