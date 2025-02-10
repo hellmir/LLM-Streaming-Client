@@ -10,6 +10,39 @@ interface OptionItem {
     items: string[];
 }
 
+const fixMarkdownTokens = (content: string): string => {
+    if (content.startsWith("-") && !content.startsWith("- ")) {
+        return "- " + content.slice(1);
+    }
+    const hashMatch = content.match(/^(#{1,6})(\S)/);
+    if (hashMatch) {
+        const token = hashMatch[1];
+        return token + " " + content.slice(token.length);
+    }
+    return content;
+};
+
+const addHeadingToNumberedList = (text: string): string => {
+    const lines = text.split("\n");
+    const processedLines = lines.map((line) => {
+        const trimmed = line.trimStart();
+
+        if (/^\d+\./.test(trimmed)) {
+            const noAsterisks = trimmed.replace(/\*\*/g, "");
+            const match = noAsterisks.match(/^(\d+\.)\s*(.*)$/);
+            if (match) {
+                return "#### " + match[1] + " " + match[2];
+            } else {
+                return "#### " + noAsterisks;
+            }
+        }
+
+        return line;
+    });
+
+    return processedLines.join("\n");
+};
+
 const IndexPage = () => {
     const [model, setModel] = useState("mistral");
     const [prompt, setPrompt] = useState("레시피 몇 개 추천해 줘");
@@ -123,8 +156,8 @@ const IndexPage = () => {
             secret_key: process.env.NEXT_PUBLIC_SECRET_KEY,
         };
 
+        const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
         const REQUEST_ENDPOINT = process.env.NEXT_PUBLIC_REQUEST_ENDPOINT;
-        const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
         const response = await fetch(`${API_BASE_URL}/${REQUEST_ENDPOINT}`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
@@ -157,6 +190,8 @@ const IndexPage = () => {
                             setText((prev) => prev + "\n");
                         } else if (content === " ") {
                             setText((prev) => prev + " ");
+                        } else if (content === "\n") {
+                            text.replace(/\n/g, "<br/>")
                         } else {
                             setText((prev) => prev + content);
                         }
@@ -197,10 +232,6 @@ const IndexPage = () => {
         return () => window.removeEventListener("keydown", handleKeyDown);
     }, [isStreaming]);
 
-    const processClovaxText = (text: string) => {
-        return text.replace(/\n/g, "<br/>")
-    };
-
     return (
         <div className="max-w-[800px] mx-auto p-5 bg-gray-100 font-sans">
             <div className="flex items-center justify-center mb-5 space-x-4">
@@ -238,9 +269,15 @@ const IndexPage = () => {
                         <option value="clovax">ClovaX</option>
                         <option value="gemini">Gemini</option>
                         <option value="llama">Llama</option>
-                        <option value="default">GPT (유료 서비스 중단으로 기본 모델로 전환)</option>
-                        <option value="default">Claude (유료 서비스 중단으로 기본 모델로 전환)</option>
-                        <option value="default">DeepSeek (유료 서비스 중단으로 기본 모델로 전환)</option>
+                        <option value="default">
+                            GPT (유료 서비스 중단으로 기본 모델로 전환)
+                        </option>
+                        <option value="default">
+                            Claude (유료 서비스 중단으로 기본 모델로 전환)
+                        </option>
+                        <option value="default">
+                            DeepSeek (유료 서비스 중단으로 기본 모델로 전환)
+                        </option>
                     </select>
                 </div>
                 <div className="mb-3">
@@ -347,7 +384,9 @@ const IndexPage = () => {
                         remarkPlugins={[remarkGfm, remarkBreaks]}
                         rehypePlugins={[rehypeRaw]}
                     >
-                        {model === "clovax" ? processClovaxText(text) : text}
+                        {model === "clovax"
+                            ? addHeadingToNumberedList(fixMarkdownTokens(text))
+                            : text}
                     </ReactMarkdown>
                 </div>
             </div>
