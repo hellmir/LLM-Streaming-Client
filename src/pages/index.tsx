@@ -1,6 +1,8 @@
 import {useEffect, useRef, useState} from "react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
+import remarkBreaks from "remark-breaks";
 import Image from "next/image";
 
 interface OptionItem {
@@ -115,14 +117,14 @@ const IndexPage = () => {
         abortControllerRef.current = controller;
 
         const requestBody = {
-            secret_key: process.env.NEXT_PUBLIC_SECRET_KEY,
             template: prompt,
             llm_type: model,
             options: parseOptions(),
+            secret_key: process.env.NEXT_PUBLIC_SECRET_KEY,
         };
 
-        const API_BASE_URL = "https://hyobin-llm.duckdns.org";
         const REQUEST_ENDPOINT = process.env.NEXT_PUBLIC_REQUEST_ENDPOINT;
+        const API_BASE_URL = process.env.NEXT_PUBLIC_BASE_API_URL;
         const response = await fetch(`${API_BASE_URL}/${REQUEST_ENDPOINT}`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
@@ -150,6 +152,7 @@ const IndexPage = () => {
                         const content = line.startsWith("data: ")
                             ? line.slice("data: ".length)
                             : line.slice("data:".length);
+
                         if (content === "") {
                             setText((prev) => prev + "\n");
                         } else if (content === " ") {
@@ -194,6 +197,10 @@ const IndexPage = () => {
         return () => window.removeEventListener("keydown", handleKeyDown);
     }, [isStreaming]);
 
+    const processClovaxText = (text: string) => {
+        return text.replace(/\n/g, "<br/>")
+    };
+
     return (
         <div className="max-w-[800px] mx-auto p-5 bg-gray-100 font-sans">
             <div className="flex items-center justify-center mb-5 space-x-4">
@@ -228,10 +235,12 @@ const IndexPage = () => {
                         className="w-full p-2 rounded border border-gray-300 bg-white text-black"
                     >
                         <option value="mistral">Mistral</option>
+                        <option value="clovax">ClovaX</option>
+                        <option value="gemini">Gemini</option>
                         <option value="llama">Llama</option>
-                        <option value="clovax">Clovax (테스트 API)</option>
-                        <option value="gemini">Gemini (테스트 API)</option>
-                        <option value="gpt">GPT (유료 서비스)</option>
+                        <option value="default">GPT (유료 서비스 중단으로 기본 모델로 전환)</option>
+                        <option value="default">Claude (유료 서비스 중단으로 기본 모델로 전환)</option>
+                        <option value="default">DeepSeek (유료 서비스 중단으로 기본 모델로 전환)</option>
                     </select>
                 </div>
                 <div className="mb-3">
@@ -334,7 +343,12 @@ const IndexPage = () => {
                         color: "#333",
                     }}
                 >
-                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{text}</ReactMarkdown>
+                    <ReactMarkdown
+                        remarkPlugins={[remarkGfm, remarkBreaks]}
+                        rehypePlugins={[rehypeRaw]}
+                    >
+                        {model === "clovax" ? processClovaxText(text) : text}
+                    </ReactMarkdown>
                 </div>
             </div>
         </div>
