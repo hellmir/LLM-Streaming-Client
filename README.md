@@ -12,6 +12,10 @@
 <b>2025. 02. 05</b>
 <br><br>
 
+## ![Image](https://github.com/user-attachments/assets/1838d6b9-69ff-43fe-80b1-b1e39709cef9) 모델 추가 및 리팩터링
+<b>2025. 02. 10</b>
+<br><br>
+
 ## 👫 구성원
 
 ### 성효빈
@@ -21,20 +25,24 @@
 ## 📚 관련 URL
 - [서비스 URL](https://hyobin-llm.vercel.app)
 - [LLM Streaming 서버 API](https://hyobin-llm.duckdns.org/docs)
-- [LLM Streaming API 클라이언트 서버 API](https://hyobin-llm-client.duckdns.org/swagger-ui/index.html)
+- [LLM Spring API 클라이언트 서버 API](https://hyobin-llm-spring.duckdns.org/swagger-ui/index.html)
+- [LLM Nest.js API 클라이언트 서버 API](https://hyobin-llm-nest.duckdns.org/api)
 - [LLM Streaming 서버 Repository](https://github.com/hellmir/LLM-Streaming-Server)
-- [LLM Streaming API 클라이언트 서버 Repository](https://github.com/hellmir/LLM-Streaming-API-Client)
+- [LLM Spring API 클라이언트 서버 Repository](https://github.com/hellmir/LLM-Spring-API-Client)
+- [LLM Nest API 클라이언트 서버 Repository](https://github.com/hellmir/LLM-Nest-API-Client)
   <br><br>
 
-## ![pngwing com (14)](https://github.com/user-attachments/assets/d2cdfacc-c141-400c-9ba4-3f77d7664714) LLM Models
+## ![ai](https://github.com/user-attachments/assets/d2cdfacc-c141-400c-9ba4-3f77d7664714) LLM Models
 - Mistral Large
-- Llama3.3
-- HCX-003
 - Gemini 1.5 Pro
+- Llama 3.3
+- HCX-003
 - GPT 3.5 Turbo
+- Claude Haiku
+- DeepSeek V3
 
 ## 🗼 Architecture
-![llm-service](https://github.com/user-attachments/assets/bd91f667-5e26-4c64-a006-b593fd12c34a)
+![llm-service](https://github.com/user-attachments/assets/c63002e7-8260-4cd8-99de-7cbd4ab4d850)
 
 ## 🛠️ Skills
 
@@ -60,7 +68,7 @@
 ## Tools
 
 ### IDE
-- Webstorm, VS Code
+- WebStorm, VS Code
 
 ### Issue Tracking
 - Jira
@@ -143,3 +151,25 @@
 ### 작업
 
 [LSCT-2](https://langchain.atlassian.net/browse/LSCT-2) README.md 추가
+
+## 릴리스 정보 - LLM Streaming Client - LlmStreamingClientRelease02/10
+
+### 하위 작업
+
+[LSCT-31](https://langchain.atlassian.net/browse/LSCT-31) Claude Haiku 모델 추가
+
+[LSCT-32](https://langchain.atlassian.net/browse/LSCT-32) DeepSeek V3 모델 추가
+
+[LSCT-33](https://langchain.atlassian.net/browse/LSCT-33) LLM 서비스 요청 URL 환경변수화
+
+[LSCT-34](https://langchain.atlassian.net/browse/LSCT-34) HCX-003 모델의 응답 포맷 개선
+
+### 에픽
+
+[LSCT-1](https://langchain.atlassian.net/browse/LSCT-1) LLM 스트리밍 서비스 클라이언트 구현
+
+### 작업
+
+[LSCT-2](https://langchain.atlassian.net/browse/LSCT-2) README.md 추가
+
+[LSCT-30](https://langchain.atlassian.net/browse/LSCT-30) 모델 추가 및 리팩터링
