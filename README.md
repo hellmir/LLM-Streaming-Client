@@ -173,3 +173,26 @@
 [LSCT-2](https://langchain.atlassian.net/browse/LSCT-2) README.md 추가
 
 [LSCT-30](https://langchain.atlassian.net/browse/LSCT-30) 모델 추가 및 리팩터링
+<br><br>
+
+## 릴리스 정보 - LLM Streaming Client - LlmStreamingClientRelease02/10-2
+
+### 하위 작업
+
+[LSCT-36](https://langchain.atlassian.net/browse/LSCT-36) \n을 < br >로 변경하도록 수정
+
+[LSCT-37](https://langchain.atlassian.net/browse/LSCT-37) -나 # 뒤에 공백이 없는 경우 삽입하도록 수정
+
+[LSCT-38](https://langchain.atlassian.net/browse/LSCT-38) 상위 번호 앞에 #### 을 추가하도록 수정
+
+### 에픽
+
+[LSCT-1](https://langchain.atlassian.net/browse/LSCT-1) LLM 스트리밍 서비스 클라이언트 구현
+
+### 작업
+
+[LSCT-2](https://langchain.atlassian.net/browse/LSCT-2) README.md 추가
+
+### 버그
+
+[LSCT-35](https://langchain.atlassian.net/browse/LSCT-35) ClovaX에 줄바꿈과 마크다운이 적용되지 않는 문제 해결
