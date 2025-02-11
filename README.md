@@ -34,15 +34,15 @@
 
 ## ![ai](https://github.com/user-attachments/assets/d2cdfacc-c141-400c-9ba4-3f77d7664714) LLM Models
 - Mistral Large
+- HCX-003
 - Gemini 1.5 Pro
 - Llama 3.3
-- HCX-003
 - GPT 3.5 Turbo
 - Claude Haiku
 - DeepSeek V3
 
 ## 🗼 Architecture
-![llm-service](https://github.com/user-attachments/assets/c63002e7-8260-4cd8-99de-7cbd4ab4d850)
+![llm-service](https://github.com/user-attachments/assets/e12f5131-d55a-4142-bae1-f58b40b91784)
 
 ## 🛠️ Skills
 
