@@ -266,15 +266,9 @@ const IndexPage = () => {
                         className="w-full p-2 rounded border border-gray-300 bg-white text-black"
                     >
                         <option value="mistral">Mistral</option>
-                        <option value="default">
-                            ClovaX (서비스 제공 중단으로 기본 모델로 전환)
-                        </option>
-                        <option value="default">
-                            Gemini (서비스 제공 중단으로 기본 모델로 전환)
-                        </option>
-                        <option value="default">
-                            Llama (서비스 제공 중단으로 기본 모델로 전환)
-                        </option>
+                        <option value="clovax">ClovaX</option>
+                        <option value="gemini">Gemini</option>
+                        <option value="llama">Llama</option>
                         <option value="default">
                             GPT (유료 서비스 중단으로 기본 모델로 전환)
                         </option>
