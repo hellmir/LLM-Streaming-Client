@@ -45,13 +45,13 @@ const addHeadingToNumberedList = (text: string): string => {
 
 const IndexPage = () => {
     const [model, setModel] = useState("mistral");
-    const [prompt, setPrompt] = useState("레시피 몇 개 추천해 줘");
+    const [prompt, setPrompt] = useState("개발자 기술 학습 커리큘럼 추천해 줘");
     const [optionsArray, setOptionsArray] = useState<OptionItem[]>([
-        {name: "식사 유형", items: ["아침"]},
-        {name: "요리 유형", items: ["이탈리안"]},
-        {name: "재료", items: ["토마토", "밀가루", "양파"]},
-        {name: "조리 도구", items: ["프라이팬", "오븐", "믹서기"]},
-        {name: "조리 시간", items: ["30분"]},
+        {name: "분야", items: ["백엔드"]},
+        {name: "주제", items: ["대용량 트래픽"]},
+        {name: "학습 수단", items: ["기술 서적", "인터넷 강좌", "LLM"]},
+        {name: "사용 기술", items: ["Java", "Spring Boot", "RDBMS", "NoSQL", "Apache Kafka", "Kubernetes"]},
+        {name: "예상 투자 시간", items: ["150시간"]},
     ]);
     const [text, setText] = useState("");
     const [isStreaming, setIsStreaming] = useState(false);
@@ -266,9 +266,15 @@ const IndexPage = () => {
                         className="w-full p-2 rounded border border-gray-300 bg-white text-black"
                     >
                         <option value="mistral">Mistral</option>
-                        <option value="clovax">ClovaX</option>
-                        <option value="gemini">Gemini</option>
-                        <option value="llama">Llama</option>
+                        <option value="default">
+                            ClovaX (서비스 제공 중단으로 기본 모델로 전환)
+                        </option>
+                        <option value="default">
+                            Gemini (서비스 제공 중단으로 기본 모델로 전환)
+                        </option>
+                        <option value="default">
+                            Llama (서비스 제공 중단으로 기본 모델로 전환)
+                        </option>
                         <option value="default">
                             GPT (유료 서비스 중단으로 기본 모델로 전환)
                         </option>
