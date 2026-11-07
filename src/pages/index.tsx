@@ -269,9 +269,7 @@ const IndexPage = () => {
                         <option value="default">
                             ClovaX (서비스 제공 중단으로 기본 모델로 전환)
                         </option>
-                        <option value="default">
-                            Gemini (서비스 제공 중단으로 기본 모델로 전환)
-                        </option>
+                        <option value="gemini">Gemini</option>
                         <option value="default">
                             Llama (서비스 제공 중단으로 기본 모델로 전환)
                         </option>
